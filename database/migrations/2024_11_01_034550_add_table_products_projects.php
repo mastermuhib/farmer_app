@@ -11,25 +11,29 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('detail_transactions', function (Blueprint $table) {
+        Schema::create('product_in_projects', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('transaction_id');
-            $table->unsignedBigInteger('product_id');
-            $table->foreign('transaction_id')
+            $table->foreign('project_id')
                     ->references('id')
-                    ->on('transactions')
-                    ->onDelete(null)
+                    ->on('projects')
+                    ->onDelete('cascade')
                     ->onUpdate('cascade');
             $table->foreign('product_id')
                     ->references('id')
                     ->on('products')
-                    ->onDelete(null)
+                    ->onDelete('cascade')
                     ->onUpdate('cascade');
-            $table->integer('qty')->default(1);
+            $table->float('start_price')->nullable();
+            $table->float('start_weight')->default(0);
+            $table->float('sale_price')->nullable();
+            $table->float('end_weight')->nullable();
+            $table->float('profit')->nullable();
+            $table->text('notes')->nullable();
+            $table->integer('status')->default(1);
             $table->date('deleted_at')->nullable();
+            $table->timestamp('checked_at')->nullable();
             $table->timestamps();
         });
-        
     }
 
     /**
@@ -39,6 +43,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('detail_transactions');
+        Schema::dropIfExists('product_in_projects');
     }
 };

@@ -16,8 +16,14 @@ return new class extends Migration
             $table->string('name');
             $table->string('email')->unique();
             $table->string('phone')->nullable();
+            $table->string('profile')->nullable();
             $table->enum('gender', ['L', 'P'])->nullable();
             $table->string('password');
+            $table->foreign('role_id')
+                    ->references('id')
+                    ->on('roles')
+                    ->onDelete(null)
+                    ->onUpdate('cascade');
             $table->timestamps();
         });
     }

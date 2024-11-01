@@ -11,16 +11,20 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('address', function (Blueprint $table) {
+        Schema::create('cities', function (Blueprint $table) {
             $table->id();
             $table->string('name')->nullable();
-            $table->string('phone')->nullable();
-            $table->float('latitute')->nullable();
+            $table->string('slug')->nullable();
+            $table->string('flag')->nullable();
+            $table->float('latitude')->nullable();
             $table->float('longitude')->nullable();
-            $table->float('poscode')->nullable();
-            $table->text('address')->nullable();
+            $table->string('code')->nullable();
+            $table->foreign('country_id')
+                    ->references('id')
+                    ->on('countries')
+                    ->onDelete('cascade')
+                    ->onUpdate('cascade');
             $table->integer('status')->default(1);
-            $table->integer('is_active')->default(1);
             $table->date('deleted_at')->nullable();
             $table->timestamps();
         });
@@ -33,6 +37,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('address');
+        Schema::dropIfExists('cities');
     }
 };

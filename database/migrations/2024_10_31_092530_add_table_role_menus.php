@@ -11,30 +11,29 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('image_products', function (Blueprint $table) {
+        Schema::create('role_menus', function (Blueprint $table) {
             $table->id();
-            $table->foreign('product_id')
+            $table->foreign('role_id')
                     ->references('id')
-                    ->on('products')
+                    ->on('roles')
                     ->onDelete(null)
                     ->onUpdate('cascade');
-            $table->string('name')->nullable();
-            $table->string('slug')->nullable();
-            $table->string('file')->nullable();
-            $table->enum('type',['foto','video'])->default('foto');
+            $table->foreign('menu_id')
+                    ->references('id')
+                    ->on('menus')
+                    ->onDelete(null)
+                    ->onUpdate('cascade');
+            $table->integer('is_view')->default(1);
+            $table->integer('is_add')->default(0);
+            $table->integer('is_edit')->default(0);
+            $table->integer('is_delete')->default(0);
             $table->integer('status')->default(1);
             $table->date('deleted_at')->nullable();
             $table->timestamps();
         });
     }
-
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
     public function down(): void
     {
-        Schema::dropIfExists('image_products');
+        Schema::dropIfExists('roles');
     }
 };

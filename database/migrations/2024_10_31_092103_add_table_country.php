@@ -11,18 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('products', function (Blueprint $table) {
+        Schema::create('countries', function (Blueprint $table) {
             $table->id();
-            $table->string('product_name')->nullable();
-            $table->enum('type', ['Animal', 'Plant'])->nullable();
+            $table->string('name')->nullable();
             $table->string('slug')->nullable();
-            $table->string('thumbnail')->nullable();
-            $table->float('price')->nullable();
-            $table->float('discount')->nullable();
-            $table->float('last_price')->nullable();
-            $table->float('progress')->default(0);
-            $table->text('description')->nullable();
-            $table->float('weight')->nullable();
+            $table->string('flag')->nullable();
+            $table->float('latitude')->nullable();
+            $table->float('longitude')->nullable();
+            $table->string('code')->nullable();
             $table->integer('status')->default(1);
             $table->date('deleted_at')->nullable();
             $table->timestamps();
@@ -36,6 +32,7 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('products');
+        Schema::dropIfExists('countries');
     }
+        
 };

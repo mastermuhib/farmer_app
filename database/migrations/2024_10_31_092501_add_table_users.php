@@ -19,6 +19,21 @@ return new class extends Migration
             $table->string('phone')->nullable();
             $table->enum('gender', ['L', 'P'])->nullable();
             $table->string('password');
+            $table->string('profile')->nullable();
+            $table->text('address')->nullable();
+            $table->string('identity_number')->nullable();
+            $table->string('identity_image')->nullable();
+            $table->string('selfie_with_identity')->nullable();
+            $table->foreign('country_id')
+                    ->references('id')
+                    ->on('countries')
+                    ->onDelete(null)
+                    ->onUpdate('cascade');
+            $table->foreign('city_id')
+                    ->references('id')
+                    ->on('cities')
+                    ->onDelete(null)
+                    ->onUpdate('cascade');
             $table->rememberToken();
             $table->timestamps();
         });
