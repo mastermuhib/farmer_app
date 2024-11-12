@@ -19,6 +19,7 @@ return new class extends Migration
             $table->float('latitude')->nullable();
             $table->float('longitude')->nullable();
             $table->string('code')->nullable();
+            $table->unsignedBigInteger('country_id');
             $table->foreign('country_id')
                     ->references('id')
                     ->on('countries')

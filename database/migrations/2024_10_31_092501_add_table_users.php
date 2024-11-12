@@ -24,6 +24,8 @@ return new class extends Migration
             $table->string('identity_number')->nullable();
             $table->string('identity_image')->nullable();
             $table->string('selfie_with_identity')->nullable();
+            $table->unsignedBigInteger('country_id');
+            $table->unsignedBigInteger('city_id');
             $table->foreign('country_id')
                     ->references('id')
                     ->on('countries')

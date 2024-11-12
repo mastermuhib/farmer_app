@@ -19,10 +19,11 @@ return new class extends Migration
             $table->string('profile')->nullable();
             $table->enum('gender', ['L', 'P'])->nullable();
             $table->string('password');
+            $table->unsignedBigInteger('role_id');
             $table->foreign('role_id')
                     ->references('id')
                     ->on('roles')
-                    ->onDelete(null)
+                    ->onDelete('cascade')
                     ->onUpdate('cascade');
             $table->timestamps();
         });

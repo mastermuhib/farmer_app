@@ -11,31 +11,34 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('role_menus', function (Blueprint $table) {
+        Schema::create('teams', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('role_id');
-            $table->unsignedBigInteger('menu_id');
-            $table->foreign('role_id')
+            $table->unsignedBigInteger('project_id');
+            $table->unsignedBigInteger('farmer_id');
+            $table->foreign('project_id')
                     ->references('id')
-                    ->on('roles')
-                    ->onDelete(null)
+                    ->on('projects')
+                    ->onDelete('cascade')
                     ->onUpdate('cascade');
-            $table->foreign('menu_id')
+            $table->foreign('farmer_id')
                     ->references('id')
-                    ->on('menus')
-                    ->onDelete(null)
+                    ->on('users')
+                    ->onDelete('cascade')
                     ->onUpdate('cascade');
-            $table->integer('is_view')->default(1);
-            $table->integer('is_add')->default(0);
-            $table->integer('is_edit')->default(0);
-            $table->integer('is_delete')->default(0);
+            $table->text('notes')->nullable();
             $table->integer('status')->default(1);
             $table->date('deleted_at')->nullable();
             $table->timestamps();
         });
     }
+
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
     public function down(): void
     {
-        Schema::dropIfExists('roles');
+        Schema::dropIfExists('teams');
     }
 };

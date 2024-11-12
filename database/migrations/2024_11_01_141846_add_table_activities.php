@@ -11,26 +11,19 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('schedules', function (Blueprint $table) {
+        Schema::create('master_activities', function (Blueprint $table) {
             $table->id();
             $table->string('title')->nullable();
             $table->string('slug')->nullable();
-            $table->unsignedBigInteger('project_id');
-            $table->unsignedBigInteger('farmer_id');
-            $table->foreign('project_id')
+            $table->unsignedBigInteger('master_id');
+            $table->foreign('master_id')
                     ->references('id')
-                    ->on('projects')
+                    ->on('master_schedules')
                     ->onDelete('cascade')
                     ->onUpdate('cascade');
-            $table->foreign('farmer_id')
-                    ->references('id')
-                    ->on('users')
-                    ->onDelete('cascade')
-                    ->onUpdate('cascade');
-            $table->float('budget')->nullable();
-            $table->enum('type', [1, 2])->nullable();
-            $table->timestamp('date')->nullable();
-            $table->text('notes')->nullable();
+            $table->integer('number_of_day')->nullable();
+            $table->integer('position')->nullable();
+            $table->text('description')->nullable();
             $table->integer('status')->default(1);
             $table->date('deleted_at')->nullable();
             $table->timestamps();
@@ -44,6 +37,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('schedules');
+        Schema::dropIfExists('master_activities');
     }
 };

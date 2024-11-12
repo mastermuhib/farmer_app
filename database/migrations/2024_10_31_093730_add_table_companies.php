@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('companies', function (Blueprint $table) {
             $table->id();
             $table->string('company_name')->nullable();
+            $table->unsignedBigInteger('owner_id');
             $table->foreign('owner_id')
                     ->references('id')
                     ->on('users')
@@ -23,6 +24,7 @@ return new class extends Migration
             $table->string('icon')->nullable();
             $table->string('company_profile')->nullable();
             $table->string('number_identity')->nullable();
+            $table->unsignedBigInteger('city_id');
             $table->foreign('city_id')
                     ->references('id')
                     ->on('cities')
