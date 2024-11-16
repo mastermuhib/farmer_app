@@ -52,6 +52,15 @@ class AuthController extends Controller
         }
     }
 
+    public function admin(){
+        if (!Auth::guard('admin')->check()) {
+            return view('login');
+        } else {
+            $data = [];
+            return view('admin.index', $data);
+        }
+    }
+
     public function logout(){
         try {
             $id_admin = Auth::guard('admin')->user()->id;

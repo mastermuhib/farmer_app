@@ -23,6 +23,7 @@ use Illuminate\Http\Request;
 Route::get('/', function () {
     return view('welcome');
 })->name('welcome');
+Route::get('admin',[AuthController::class,'admin'])->name('getlogin');
 Route::post('login',[AuthController::class,'login'])->name('postlogin');
 Route::post('/set_language',[Controller::class,'set_language'])->name('set_language');
 
